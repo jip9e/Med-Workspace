@@ -1,6 +1,7 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, useEffect, useRef, useState } from 'react';
 import { useVisionOrchestrator, VisionState } from '../hooks/useVisionOrchestrator';
 import { useVoiceCommands } from '../hooks/useVoiceCommands';
+import { BurnoutMonitor, BurnoutStatus } from '../modules/BurnoutMonitor/Monitor';
 
 interface ExtendedVisionState extends VisionState {
   voiceCommand: string | null;
@@ -8,6 +9,14 @@ interface ExtendedVisionState extends VisionState {
 }
 
 const VisionContext = createContext<ExtendedVisionState | undefined>(undefined);
+
+export const useVision = () => {
+  const context = useContext(VisionContext);
+  if (context === undefined) {
+    throw new Error('useVision must be used within a VisionProvider');
+  }
+  return context;
+};
 
 export const VisionProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const visionState = useVisionOrchestrator();
@@ -23,6 +32,7 @@ export const VisionProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     <VisionContext.Provider value={value}>
       {children}
       <VoiceStatusIndicator />
+      <BurnoutMonitorOverlay />
     </VisionContext.Provider>
   );
 };
@@ -32,7 +42,7 @@ const VoiceStatusIndicator: React.FC = () => {
   if (!isListening) return null;
 
   return (
-    <div className="fixed top-24 right-4 flex flex-col items-end gap-2 z-50">
+    <div className="fixed top-24 right-4 flex flex-col items-end gap-2 z-[60]">
       <div className="flex items-center gap-2 bg-gray-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-blue-500/50 shadow-lg">
         <span className="flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-blue-400 opacity-75"></span>
@@ -48,10 +58,6 @@ const VoiceStatusIndicator: React.FC = () => {
     </div>
   );
 };
-
-import { useEffect, useRef, useState } from 'react';
-import { BurnoutMonitor, BurnoutStatus } from '../modules/BurnoutMonitor/Monitor';
-import { useVision } from './VisionProvider';
 
 export const BurnoutMonitorOverlay: React.FC = () => {
   const { faceResults } = useVision();
@@ -84,4 +90,3 @@ export const BurnoutMonitorOverlay: React.FC = () => {
     </div>
   );
 };
-

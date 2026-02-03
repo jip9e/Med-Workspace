@@ -14,3 +14,7 @@
 - [x] Follow TDD/frequent commit rules.
 
 ## Task 4: UI/UX Refinement
+- [x] Apply a high-contrast 'Clinical Dark' theme using Tailwind CSS (OLED blacks, medical blue accents).
+- [x] Ensure the UI is responsive for iPad/Tablet users (optimized for long-term focus).
+- [x] Update 'src/index.css' and 'App.tsx' to reflect the new theme.
+- [x] Follow TDD/frequent commit rules.

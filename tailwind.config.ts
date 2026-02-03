@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Figtree', 'Noto Sans', 'ui-sans-serif', 'system-ui'],
+        medical: ['Noto Sans', 'sans-serif'],
+      },
       colors: {
         'clinical-black': '#050505',
         'clinical-dark': '#0a0a0a',

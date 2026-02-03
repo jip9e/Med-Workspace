@@ -17,3 +17,9 @@
 - [x] Link 3D model rotation to hand tracking data
 - [x] Integrate HoloAnatomy into Main UI
 - [x] Follow TDD/frequent commit rules
+
+## Task 5: Burnout Monitor & Health Alerts
+- [x] Create 'src/modules/BurnoutMonitor/Monitor.ts' for blink/posture tracking
+- [x] Create 'src/components/AlertOverlay.tsx' (integrated into VisionProvider as BurnoutMonitorOverlay)
+- [x] Implement logic for blink rate and posture alerts
+- [x] Follow TDD/frequent commit rules

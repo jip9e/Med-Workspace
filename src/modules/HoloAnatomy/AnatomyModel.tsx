@@ -5,10 +5,16 @@ import * as THREE from 'three';
 
 export const AnatomyModel: React.FC = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { handResults } = useVision();
+  const { handResults, voiceCommand } = useVision();
 
   useFrame(() => {
     if (!meshRef.current) return;
+
+    if (voiceCommand === 'ROTATE_LEFT') {
+      meshRef.current.rotation.y -= 0.05;
+    } else if (voiceCommand === 'ROTATE_RIGHT') {
+      meshRef.current.rotation.y += 0.05;
+    }
 
     if (handResults && handResults.landmarks && handResults.landmarks.length > 0) {
       // Use the first hand detected

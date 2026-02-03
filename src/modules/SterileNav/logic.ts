@@ -25,19 +25,22 @@ export function detectScrollGesture(result: HandLandmarkerResult): GestureComman
   const indexFingerTip = landmarks[8];
   const wrist = landmarks[0];
 
+  if (!indexFingerTip || !wrist) return 'NONE';
+
   // In MediaPipe, Y increases downwards (0 is top, 1 is bottom)
   const yDiff = wrist.y - indexFingerTip.y;
 
-  // If index finger is much higher than wrist, let's say it's an UP gesture
-  // If index finger is much lower than wrist (folded), let's say it's DOWN? 
-  // Actually, let's use the absolute position in the frame for a simple "virtual scrollbar" logic
-  // or use the delta if we have previous state.
-  
-  // For now, let's use a simple threshold based on relative position.
-  if (yDiff > 0.2) {
+  // DEAD ZONE: Prevent small movements from triggering actions
+  const DEAD_ZONE = 0.1;
+
+  // If index finger is much higher than wrist, it's an UP gesture
+  if (yDiff > DEAD_ZONE) {
     return 'SCROLL_UP';
-  } else if (yDiff < -0.05) {
-    // If the index tip is below the wrist, it's definitely down/closed
+  } 
+  
+  // Refined DOWN gesture: "Palm Down" or simply fingers pointing down
+  // If wrist is significantly above the index tip (yDiff is negative)
+  if (yDiff < -DEAD_ZONE) {
     return 'SCROLL_DOWN';
   }
 

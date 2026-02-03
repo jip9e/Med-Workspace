@@ -3,6 +3,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 export const useVoiceCommands = () => {
   const [isListening, setIsListening] = useState(false);
   const [lastCommand, setLastCommand] = useState<string | null>(null);
+  const [isDictating, setIsDictating] = useState(false);
+  const [transcript, setTranscript] = useState('');
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
@@ -14,28 +16,54 @@ export const useVoiceCommands = () => {
       recognition.lang = 'en-US';
 
       recognition.onstart = () => setIsListening(true);
-      recognition.onend = () => setIsListening(false);
+      recognition.onend = () => {
+        setIsListening(false);
+        // Restart recognition if it ends unexpectedly while we want it active
+        if (recognitionRef.current) {
+           try { recognition.start(); } catch(e) {}
+        }
+      };
       recognition.onerror = (event: any) => {
         console.error('Speech recognition error', event.error);
-        setIsListening(false);
+        if (event.error === 'not-allowed') {
+          setIsListening(false);
+        }
       };
 
       recognition.onresult = (event: any) => {
-        const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
-        console.log('Voice Command:', transcript);
+        const currentResultIndex = event.results.length - 1;
+        const text = event.results[currentResultIndex][0].transcript.toLowerCase().trim();
+        console.log('Voice Input:', text);
         
-        if (transcript.includes('scroll up')) {
+        // Command Detection
+        if (text.includes('scroll up')) {
           setLastCommand('SCROLL_UP');
-        } else if (transcript.includes('scroll down')) {
+          setTimeout(() => setLastCommand(null), 2000);
+        } else if (text.includes('scroll down')) {
           setLastCommand('SCROLL_DOWN');
-        } else if (transcript.includes('rotate left')) {
+          setTimeout(() => setLastCommand(null), 2000);
+        } else if (text.includes('rotate left')) {
           setLastCommand('ROTATE_LEFT');
-        } else if (transcript.includes('rotate right')) {
+          setTimeout(() => setLastCommand(null), 2000);
+        } else if (text.includes('rotate right')) {
           setLastCommand('ROTATE_RIGHT');
+          setTimeout(() => setLastCommand(null), 2000);
+        } else if (text.includes('start note')) {
+          setIsDictating(true);
+          setLastCommand('START_NOTE');
+          setTimeout(() => setLastCommand(null), 2000);
+        } else if (text.includes('save note')) {
+          setIsDictating(false);
+          setLastCommand('SAVE_NOTE');
+          setTimeout(() => setLastCommand(null), 2000);
+        } else {
+          // If in dictation mode and not a recognized system command, treat as transcript
+          if (isDictating) {
+            setTranscript(text);
+            // We'll clear the transcript state immediately after it's consumed by the consumer
+            // or use a timestamp to differentiate updates
+          }
         }
-        
-        // Clear command after a delay
-        setTimeout(() => setLastCommand(null), 2000);
       };
 
       recognitionRef.current = recognition;
@@ -46,10 +74,12 @@ export const useVoiceCommands = () => {
 
     return () => {
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        const rec = recognitionRef.current;
+        recognitionRef.current = null;
+        rec.stop();
       }
     };
-  }, []);
+  }, [isDictating]); // Re-bind when dictation state changes if needed
 
-  return { isListening, lastCommand };
+  return { isListening, lastCommand, isDictating, transcript };
 };

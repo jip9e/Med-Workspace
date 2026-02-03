@@ -26,14 +26,14 @@ export const BentoItem: React.FC<BentoItemProps> = ({
   subtitle 
 }) => {
   return (
-    <div className={`clinical-card flex flex-col overflow-hidden ${className}`}>
+    <div className={`clinical-card flex flex-col overflow-hidden group/bento ${className}`}>
       {(title || subtitle) && (
-        <div className="p-4 border-b border-clinical-border flex justify-between items-center bg-clinical-black/40">
+        <div className="p-4 border-b border-clinical-border flex justify-between items-center bg-clinical-black/40 group-hover/bento:bg-clinical-black/60 transition-colors duration-300">
           <div>
-            {title && <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{title}</h3>}
-            {subtitle && <p className="text-xs text-medical-blue-400 font-medium">{subtitle}</p>}
+            {title && <h3 className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] group-hover/bento:text-gray-400 transition-colors">{title}</h3>}
+            {subtitle && <p className="text-xs text-medical-blue-400 font-bold tracking-tight">{subtitle}</p>}
           </div>
-          <div className="w-1.5 h-1.5 rounded-full bg-medical-blue-500 animate-pulse shadow-[0_0_8px_rgba(14,140,233,0.5)]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-medical-blue-500 animate-pulse shadow-[0_0_10px_rgba(93,165,165,0.8)]" />
         </div>
       )}
       <div className="flex-1 relative min-h-0">

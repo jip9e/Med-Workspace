@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# 🗡️ Med-Workspace Pro Max
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A next-generation, browser-based medical workstation designed for medical students and clinical environments. Built with a focus on privacy, hygiene, and ergonomics.
 
-Currently, two official plugins are available:
+![Version](https://img.shields.io/badge/version-V3_PRO_MAX-5DA5A5)
+![Tech](https://img.shields.io/badge/Tech-React_19_+_Three.js_+_MediaPipe-blue)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Key Features
 
-## React Compiler
+### 1. 🦴 Holo-Anatomy (AR Visualization)
+Real-time 3D anatomical visualization that responds to your body.
+- **Gesture Control:** Rotate, zoom, and manipulate 3D models hands-free using webcam-based hand tracking.
+- **Holographic Glow:** Optimized lighting and "breathing" shaders for a futuristic, medical-grade aesthetic.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. 🧼 Sterile Nav (Touchless Scrolling)
+Navigate documentation and clinical notes without touching your device.
+- **Index Point:** Scroll Up.
+- **Palm Down:** Scroll Down.
+- **Zero-Touch:** Perfect for lab environments or when wearing medical gloves.
 
-## Expanding the ESLint configuration
+### 3. 🧠 Burnout Monitor (AI Biometrics)
+Active well-being monitoring to prevent digital strain during long study sessions.
+- **Posture Correction:** Alerts you when slouching or improper neck angles are detected.
+- **Blink Rate Tracking:** Calculates blinks per minute using FaceMesh to prevent eye dryness.
+- **Health Overlays:** Non-intrusive clinical alerts when health thresholds are breached.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 4. 🎙️ Medical Dictation
+Hands-free note-taking integrated directly into the workspace.
+- **Voice Triggers:** Say "Start Note" to begin and "Save Note" to archive.
+- **Export:** One-click export of clinical observations to `.txt` files.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 5. 📱 iPad-First Ergonomics
+- **Bento Grid Layout:** Hyper-clean, modular dashboard.
+- **OLED Optimized:** True black (#000000) theme to maximize battery and eliminate eye strain.
+- **Touch Targets:** Standardized 44px targets following Apple's Human Interface Guidelines.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Framework:** React 19 + Vite
+- **3D Engine:** Three.js (React Three Fiber)
+- **AI Engines:** Google MediaPipe (@mediapipe/tasks-vision)
+- **Styling:** Tailwind CSS (Clinical Dark Theme)
+- **Icons:** Lucide React
+- **Voice:** Web Speech API
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/jip9e/Med-Workspace.git
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+4.  **Open in Browser:** Navigate to `http://localhost:5173` and allow camera access.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+**Privacy Note:** All AI processing happens locally in your browser. No camera data or voice recordings are ever sent to a server.
+
+*Developed with 🗡️ by KNIGHTOS for Seinse.*

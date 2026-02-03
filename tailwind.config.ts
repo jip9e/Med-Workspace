@@ -12,8 +12,9 @@ export default {
         medical: ['Noto Sans', 'sans-serif'],
       },
       colors: {
-        'clinical-black': '#050505',
-        'clinical-dark': '#0a0a0a',
+        'clinical-black': '#000000',
+        'clinical-dark': '#0A0A0A',
+        'clinical-border': '#1F2937',
         'medical-blue': {
           50: '#f0f7ff',
           100: '#e0effe',

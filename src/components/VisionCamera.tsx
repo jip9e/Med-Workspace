@@ -4,11 +4,12 @@ import { HandLandmarkerResult } from '@mediapipe/tasks-vision';
 
 interface VisionCameraProps {
   onHandResults?: (result: HandLandmarkerResult) => void;
+  onFaceResults?: (result: FaceLandmarkerResult) => void;
 }
 
-export const VisionCamera: React.FC<VisionCameraProps> = ({ onHandResults }) => {
+export const VisionCamera: React.FC<VisionCameraProps> = ({ onHandResults, onFaceResults }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { handLandmarker, isLoading } = useVision();
+  const { handLandmarker, faceLandmarker, isLoading } = useVision();
   const [isCameraActive, setIsCameraActive] = useState(false);
 
   useEffect(() => {
@@ -34,15 +35,24 @@ export const VisionCamera: React.FC<VisionCameraProps> = ({ onHandResults }) => 
 
     const predict = () => {
       if (
-        handLandmarker &&
         videoRef.current &&
         videoRef.current.readyState >= 2 &&
         isCameraActive
       ) {
         const startTimeMs = performance.now();
-        const results = handLandmarker.detectForVideo(videoRef.current, startTimeMs);
-        if (onHandResults) {
-          onHandResults(results);
+        
+        if (handLandmarker) {
+          const results = handLandmarker.detectForVideo(videoRef.current, startTimeMs);
+          if (onHandResults) {
+            onHandResults(results);
+          }
+        }
+
+        if (faceLandmarker) {
+          const results = faceLandmarker.detectForVideo(videoRef.current, startTimeMs);
+          if (onFaceResults) {
+            onFaceResults(results);
+          }
         }
       }
       animationFrameId = requestAnimationFrame(predict);

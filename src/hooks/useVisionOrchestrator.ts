@@ -10,6 +10,10 @@ import {
 export interface VisionState {
   handLandmarker: HandLandmarker | null;
   faceLandmarker: FaceLandmarker | null;
+  handResults: HandLandmarkerResult | null;
+  faceResults: FaceLandmarkerResult | null;
+  setHandResults: (results: HandLandmarkerResult) => void;
+  setFaceResults: (results: FaceLandmarkerResult) => void;
   isLoading: boolean;
   error: string | null;
 }
@@ -18,6 +22,10 @@ export const useVisionOrchestrator = () => {
   const [state, setState] = useState<VisionState>({
     handLandmarker: null,
     faceLandmarker: null,
+    handResults: null,
+    faceResults: null,
+    setHandResults: (results) => setState(prev => ({ ...prev, handResults: results })),
+    setFaceResults: (results) => setState(prev => ({ ...prev, faceResults: results })),
     isLoading: true,
     error: null,
   });

@@ -23,3 +23,10 @@
 - [x] Create 'src/components/AlertOverlay.tsx' (integrated into VisionProvider as BurnoutMonitorOverlay)
 - [x] Implement logic for blink rate and posture alerts
 - [x] Follow TDD/frequent commit rules
+
+## Task 6: Voice Commands & Accessibility
+- [x] Create 'src/hooks/useVoiceCommands.ts' using the Web Speech API (SpeechRecognition)
+- [x] Implement basic command detection for keywords like 'Scroll Up', 'Scroll Down', 'Rotate Left', 'Rotate Right'
+- [x] Add a visual 'Listening' indicator to the UI
+- [x] Link voice commands to the existing SterileNav and HoloAnatomy modules
+- [x] Follow TDD/frequent commit rules

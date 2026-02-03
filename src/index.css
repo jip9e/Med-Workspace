@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-clinical-black text-gray-100;
+  }
+}
+
+@layer components {
+  .clinical-card {
+    @apply bg-clinical-dark border border-gray-800 rounded-xl shadow-2xl transition-all duration-300;
+  }
+  
+  .medical-accent {
+    @apply text-medical-blue-400 font-semibold uppercase tracking-wider text-xs;
+  }
+}

@@ -72,18 +72,22 @@ export const VisionCamera: React.FC<VisionCameraProps> = ({ onHandResults, onFac
   if (isLoading) return <div>Loading Vision Models...</div>;
 
   return (
-    <div className="relative w-full max-w-md mx-auto aspect-video bg-black rounded-lg overflow-hidden border-2 border-blue-500 shadow-xl">
+    <div className="relative w-full h-full bg-clinical-dark rounded-xl overflow-hidden border border-clinical-border group-hover:border-medical-blue-500/30 transition-all duration-300">
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
         muted
         playsInline
       />
       {!isCameraActive && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
-          <p className="text-white">Starting Camera...</p>
+        <div className="absolute inset-0 flex items-center justify-center bg-clinical-black/80">
+          <p className="text-[10px] text-medical-blue-400 font-black uppercase tracking-widest animate-pulse">Initializing_Feed...</p>
         </div>
       )}
+      <div className="absolute top-3 left-3 flex items-center gap-2">
+        <div className={`w-1.5 h-1.5 rounded-full ${isCameraActive ? 'bg-medical-blue-500 animate-pulse' : 'bg-gray-600'}`} />
+        <span className="text-[8px] font-mono text-white/40 uppercase tracking-tighter">Cam_Input_01</span>
+      </div>
     </div>
   );
 };

@@ -6,10 +6,11 @@
 - [x] Ensure rotation/position syncing logic is updated for the new model.
 - [x] Follow TDD/frequent commit rules.
 
-## Task 2: Advanced Interaction
-- [x] Implement a smoothing/interpolation filter (Lerp) for hand landmarks.
-- [x] Refine gesture detection (e.g., improved Palm Down for scroll down).
-- [x] Add a 'dead zone' to gestures to prevent accidental movements.
-- [ ] Implement gesture-based scaling (pinch to zoom).
-- [ ] Add anatomical labels to the 3D model.
+## Task 3: Voice-Enabled Medical Notes
+- [x] Create 'src/modules/Notes/NotesManager.tsx' for UI and state management of medical notes.
+- [x] Update 'src/hooks/useVoiceCommands.ts' to handle continuous transcription for 'Dictation Mode'.
+- [x] Implement 'Start Note' and 'Save Note' voice triggers.
+- [x] Create a basic local export (e.g., text file download) for saved notes.
 - [x] Follow TDD/frequent commit rules.
+
+## Task 4: UI/UX Refinement

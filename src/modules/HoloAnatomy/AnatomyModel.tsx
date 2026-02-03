@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useVision } from '../../components/VisionProvider';
 import * as THREE from 'three';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, Float, MeshDistortMaterial } from '@react-three/drei';
 
 // Smoothing factors
 const LERP_SPEED = 0.1;
@@ -16,6 +16,18 @@ export const AnatomyModel: React.FC = () => {
   // Use Refs for smoothed values to maintain state across frames without re-renders
   const targetRotation = useRef({ x: 0, y: 0 });
   const targetPositionZ = useRef(0);
+
+  // Memoize a subtle glow sphere
+  const glowMaterial = useMemo(() => (
+    <MeshDistortMaterial
+      color="#5DA5A5"
+      transparent
+      opacity={0.15}
+      distort={0.3}
+      speed={2}
+      side={THREE.BackSide}
+    />
+  ), []);
 
   useFrame(() => {
     if (!groupRef.current) return;
@@ -72,7 +84,14 @@ export const AnatomyModel: React.FC = () => {
 
   return (
     <group ref={groupRef}>
-      <primitive object={scene} scale={2} position={[0, -1, 0]} />
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+        <primitive object={scene} scale={2} position={[0, -1, 0]} />
+        {/* Subtle 'Glow' Effect Overlay */}
+        <mesh scale={2.5}>
+          <sphereGeometry args={[1, 32, 32]} />
+          {glowMaterial}
+        </mesh>
+      </Float>
     </group>
   );
 };

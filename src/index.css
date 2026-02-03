@@ -13,8 +13,25 @@
     @apply bg-clinical-dark border border-clinical-border rounded-2xl shadow-2xl transition-all duration-300;
   }
   
+  .clinical-card:hover {
+    @apply border-medical-blue-500/50 shadow-[0_0_20px_rgba(93,165,165,0.1)];
+  }
+  
   .medical-accent {
     @apply text-medical-blue-400 font-semibold uppercase tracking-wider text-xs;
+  }
+
+  /* Accessibility: Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-delay: -1ms !important;
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      background-attachment: initial !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
+    }
   }
 
   /* iPad/Tablet Optimization Helpers */

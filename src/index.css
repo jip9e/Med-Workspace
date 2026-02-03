@@ -10,10 +10,38 @@
 
 @layer components {
   .clinical-card {
-    @apply bg-clinical-dark border border-clinical-border rounded-xl shadow-2xl transition-all duration-300;
+    @apply bg-clinical-dark border border-clinical-border rounded-2xl shadow-2xl transition-all duration-300;
   }
   
   .medical-accent {
     @apply text-medical-blue-400 font-semibold uppercase tracking-wider text-xs;
+  }
+
+  /* iPad/Tablet Optimization Helpers */
+  .touch-target-min {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Landscape/Portrait specific tweaks for Bento Grid */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .md\:col-span-3 {
+    grid-column: span 2 / span 2 !important;
+  }
+  .md\:row-span-4 {
+    grid-row: span 3 / span 3 !important;
   }
 }
